@@ -17,8 +17,6 @@
 """
 from __future__ import absolute_import, unicode_literals
 
-import sys
-
 from collections import Iterable, Mapping, deque, namedtuple
 
 from decimal import Decimal
@@ -31,14 +29,6 @@ from kombu.utils.encoding import bytes_to_str
 from .text import truncate, truncate_bytes
 
 __all__ = ['saferepr', 'reprstream']
-
-IS_PY3 = sys.version_info[0] == 3
-
-if IS_PY3:  # pragma: no cover
-    range_t = (range, )
-else:
-    class range_t:  # noqa
-        pass
 
 _literal = namedtuple('_literal', ('value', 'truncate', 'direction'))
 _key = namedtuple('_key', ('value',))
@@ -107,10 +97,8 @@ def _saferepr(o, maxlen=None, maxlevels=3, seen=None):
             val = saferepr(token.value, maxlen, maxlevels)
         elif isinstance(token, _quoted):
             val = token.value
-            if IS_PY3 and isinstance(val, bytes):  # pragma: no cover
+            if isinstance(val, bytes):
                 val = "b'%s'" % (bytes_to_str(truncate_bytes(val, maxlen)),)
-            else:
-                val = "'%s'" % (truncate(val, maxlen),)
         else:
             val = truncate(token, maxlen)
         yield val
@@ -160,7 +148,7 @@ def reprstream(stack, seen=None, maxlevels=3, level=0, isinstance=isinstance):
                 yield str(val), it
             elif isinstance(val, chars_t):
                 yield _quoted(val), it
-            elif isinstance(val, range_t):  # pragma: no cover
+            elif isinstance(val, range):  # pragma: no cover
                 yield repr(val), it
             else:
                 if isinstance(val, set_t):

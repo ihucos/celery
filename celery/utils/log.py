@@ -27,7 +27,6 @@ __all__ = ['ColorFormatter', 'LoggingProxy', 'base_logger',
            'get_multiprocessing_logger', 'reset_multiprocessing_logger']
 
 _process_aware = False
-PY3 = sys.version_info[0] == 3
 
 MP_LOG = os.environ.get('MP_LOG', False)
 
@@ -128,10 +127,7 @@ class ColorFormatter(logging.Formatter):
     def formatException(self, ei):
         if ei and not isinstance(ei, tuple):
             ei = sys.exc_info()
-        r = logging.Formatter.formatException(self, ei)
-        if isinstance(r, str) and not PY3:
-            return safe_str(r)
-        return r
+        return logging.Formatter.formatException(self, ei)
 
     def format(self, record):
         msg = logging.Formatter.format(self, record)
