@@ -46,7 +46,7 @@ def fixup(app, env='DJANGO_SETTINGS_MODULE'):
             return DjangoFixup(app).install()
 
 
-class DjangoFixup(object):
+class DjangoFixup:
 
     def __init__(self, app):
         self.app = app
@@ -101,7 +101,7 @@ class DjangoFixup(object):
             return datetime.now
 
 
-class DjangoWorkerFixup(object):
+class DjangoWorkerFixup:
     _db_recycles = 0
 
     def __init__(self, app):

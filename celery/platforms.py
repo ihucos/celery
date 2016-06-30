@@ -119,7 +119,7 @@ class LockFailed(Exception):
     """Raised if a PID lock can't be acquired."""
 
 
-class Pidfile(object):
+class Pidfile:
     """Pidfile
 
     This is the type returned by :func:`create_pidlock`.
@@ -294,7 +294,7 @@ def fd_by_path(paths):
     return [_fd for _fd in range(get_fdmax(2048)) if fd_in_stats(_fd)]
 
 
-class DaemonContext(object):
+class DaemonContext:
     _is_open = False
 
     def __init__(self, pidfile=None, workdir=None, umask=None,
@@ -557,7 +557,7 @@ def maybe_drop_privileges(uid=None, gid=None):
         raise AssertionError('Still root gid after drop privileges!')
 
 
-class Signals(object):
+class Signals:
     """Convenience interface to :mod:`signals`.
 
     If the requested signal is not supported on the current platform,

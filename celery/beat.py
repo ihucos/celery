@@ -57,7 +57,7 @@ class SchedulingError(Exception):
 
 @total_ordering
 @python_2_unicode_compatible
-class ScheduleEntry(object):
+class ScheduleEntry:
     """An entry in the scheduler.
 
     :keyword name: see :attr:`name`.
@@ -160,7 +160,7 @@ class ScheduleEntry(object):
         return NotImplemented
 
 
-class Scheduler(object):
+class Scheduler:
     """Scheduler for periodic tasks.
 
     The :program:`celery beat` program may instantiate this class
@@ -495,7 +495,7 @@ class PersistentScheduler(Scheduler):
         return '    . db -> {self.schedule_filename}'.format(self=self)
 
 
-class Service(object):
+class Service:
     scheduler_cls = PersistentScheduler
 
     def __init__(self, app, max_interval=None, schedule_filename=None,

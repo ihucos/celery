@@ -169,7 +169,7 @@ class ColorFormatter(logging.Formatter):
             return safe_str(msg)
 
 
-class LoggingProxy(object):
+class LoggingProxy:
     """Forward file object to :class:`logging.Logger` instance.
 
     :param logger: The :class:`logging.Logger` instance to forward to.

@@ -29,7 +29,7 @@ def fg(s):
 
 
 @python_2_unicode_compatible
-class colored(object):
+class colored:
     """Terminal colored text.
 
     Example::

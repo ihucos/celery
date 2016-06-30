@@ -80,7 +80,7 @@ class StepFormatter(GraphFormatter):
         return self.draw_edge(a, b, self.edge_scheme, attrs)
 
 
-class Blueprint(object):
+class Blueprint:
     """Blueprint containing bootsteps that can be applied to objects.
 
     :keyword steps: List of steps.
@@ -298,7 +298,7 @@ class StepType(type):
 
 
 @with_metaclass(StepType)
-class Step(object):
+class Step:
     """A Bootstep.
 
     The :meth:`__init__` method is called when the step

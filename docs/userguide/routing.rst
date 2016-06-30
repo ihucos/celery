@@ -580,7 +580,7 @@ All you need to define a new router is to create a class with a
 
 .. code-block:: python
 
-    class MyRouter(object):
+    class Router:
 
         def route_for_task(self, task, args=None, kwargs=None):
             if task == 'myapp.tasks.compress_video':
@@ -611,13 +611,13 @@ setting:
 
 .. code-block:: python
 
-    task_routes = (MyRouter(),)
+    task_routes = (Router(),)
 
 Router classes can also be added by name:
 
 .. code-block:: python
 
-    task_routes = ('myapp.routers.MyRouter',)
+    task_routes = ('myapp.routers.Router',)
 
 
 For simple task name -> route mappings like the router example above,

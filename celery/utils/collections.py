@@ -32,7 +32,7 @@ except ImportError:
 try:
     from django.utils.functional import LazyObject, LazySettings
 except ImportError:
-    class LazyObject(object):  # noqa
+    class LazyObject:  # noqa
         pass
     LazySettings = LazyObject  # noqa
 
@@ -113,7 +113,7 @@ class OrderedDict(_OrderedDict):
                     root[1] = first[0] = link
 
 
-class AttributeDictMixin(object):
+class AttributeDictMixin:
     """Augment classes with a Mapping interface by adding attribute access.
 
     I.e. `d.key -> d[key]`.
@@ -139,7 +139,7 @@ class AttributeDict(dict, AttributeDictMixin):
     pass
 
 
-class DictAttribute(object):
+class DictAttribute:
     """Dict interface to attributes.
 
     `obj[k] -> obj.k`
@@ -424,7 +424,7 @@ class ConfigurationView(ChainMap, AttributeDictMixin):
 
 
 @python_2_unicode_compatible
-class LimitedSet(object):
+class LimitedSet:
     """Kind-of Set (or priority queue) with limitations.
 
     Good for when you need to test for membership (`a in set`),
@@ -648,7 +648,7 @@ class LimitedSet(object):
 MutableSet.register(LimitedSet)
 
 
-class Evictable(object):
+class Evictable:
 
     Empty = Empty
 

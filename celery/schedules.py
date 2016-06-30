@@ -69,7 +69,7 @@ class ParseException(Exception):
 
 
 @python_2_unicode_compatible
-class schedule(object):
+class schedule:
     """Schedule for periodic task.
 
     :param run_every: Interval in seconds (or a :class:`~datetime.timedelta`).
@@ -180,7 +180,7 @@ class schedule(object):
         return dt
 
 
-class crontab_parser(object):
+class crontab_parser:
     """Parser for Crontab expressions. Any expression of the form 'groups'
     (see BNF grammar below) is accepted and expanded to a set of numbers.
     These numbers represent the units of time that the Crontab needs to

@@ -40,7 +40,7 @@ Configuration ->
 logger = get_logger('celery.beat')
 
 
-class Beat(object):
+class Beat:
     Service = beat.Service
     app = None
 

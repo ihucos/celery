@@ -110,7 +110,7 @@ class PendingConfiguration(UserDict, AttributeDictMixin):
 
 
 @python_2_unicode_compatible
-class Celery(object):
+class Celery:
     """Celery application.
 
     :param main: Name of the main module if running as `__main__`.

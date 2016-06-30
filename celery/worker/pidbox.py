@@ -18,7 +18,7 @@ logger = get_logger(__name__)
 debug, error, info = logger.debug, logger.error, logger.info
 
 
-class Pidbox(object):
+class Pidbox:
     consumer = None
 
     def __init__(self, c):

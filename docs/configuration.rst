@@ -262,7 +262,7 @@ instead of a dict to choose which tasks to annotate:
 
 .. code-block:: python
 
-    class MyAnnotate(object):
+    class MyAnnotate:
 
         def annotate(self, task):
             if task.name.startswith('tasks.'):
@@ -1280,7 +1280,7 @@ Where ``myapp.tasks.Router`` could be:
 
 .. code-block:: python
 
-    class Router(object):
+    class Router:
 
         def route_for_task(self, task, args=None, kwargs=None):
             if task == 'celery.ping':

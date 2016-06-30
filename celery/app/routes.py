@@ -38,7 +38,7 @@ def glob_to_re(glob, quote=string.punctuation.replace('*', '')):
     return glob.replace('*', '.+?')
 
 
-class MapRoute(object):
+class MapRoute:
     """Creates a router out of a :class:`dict`."""
 
     def __init__(self, map):
@@ -68,7 +68,7 @@ class MapRoute(object):
                     return {'queue': route}
 
 
-class Router(object):
+class Router:
 
     def __init__(self, routes=None, queues=None,
                  create_missing=False, app=None):

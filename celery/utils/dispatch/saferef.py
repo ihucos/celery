@@ -45,7 +45,7 @@ def safe_ref(target, on_delete=None):  # pragma: no cover
 
 
 @python_2_unicode_compatible
-class BoundMethodWeakref(object):  # pragma: no cover
+class BoundMethodWeakref:  # pragma: no cover
     """'Safe' and reusable weak references to instance methods.
 
     BoundMethodWeakref objects provide a mechanism for
@@ -218,7 +218,7 @@ class BoundNonDescriptorMethodWeakref(BoundMethodWeakref):  # pragma: no cover
     is equally fast, but not 100% reliable because functions can be stored on
     an attribute named differenty than the function's name such as in::
 
-        >>> class A(object):
+        >>> class A:
         ...     pass
 
         >>> def foo(self):
