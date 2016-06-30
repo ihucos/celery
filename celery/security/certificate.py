@@ -14,7 +14,6 @@ import os
 from kombu.utils.encoding import bytes_to_str
 
 from celery.exceptions import SecurityError
-from celery.five import values
 
 from .utils import crypto, reraise_errors
 
@@ -60,7 +59,7 @@ class CertStore:
 
     def itercerts(self):
         """an iterator over the certificates"""
-        for c in values(self._certs):
+        for c in self._certs.values():
             yield c
 
     def __getitem__(self, id):

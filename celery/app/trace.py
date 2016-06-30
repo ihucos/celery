@@ -20,6 +20,7 @@ import os
 import sys
 
 from collections import namedtuple
+from time import monotonic
 from warnings import warn
 
 from billiard.einfo import ExceptionInfo
@@ -33,7 +34,6 @@ from celery._state import _task_stack
 from celery.app import set_default_app
 from celery.app.task import Task as BaseTask, Context
 from celery.exceptions import Ignore, Reject, Retry, InvalidTaskError
-from celery.five import monotonic
 from celery.utils.log import get_logger
 from celery.utils.nodenames import gethostname
 from celery.utils.objects import mro_lookup

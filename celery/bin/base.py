@@ -10,6 +10,7 @@ import json
 
 from collections import defaultdict
 from heapq import heappush
+from inspect import getfullargspec
 from optparse import (
     OptionParser, OptionGroup, IndentedHelpFormatter, make_option as Option,
 )
@@ -18,7 +19,6 @@ from pprint import pformat
 from celery import VERSION_BANNER, Celery, maybe_patch_concurrency
 from celery import signals
 from celery.exceptions import CDeprecationWarning, CPendingDeprecationWarning
-from celery.five import getfullargspec, items, string, string_t
 from celery.platforms import EX_FAILURE, EX_OK, EX_USAGE
 from celery.utils import term
 from celery.utils import text
@@ -266,7 +266,7 @@ class Command:
         pass
 
     def expanduser(self, value):
-        if isinstance(value, string_t):
+        if isinstance(value, str):
             return os.path.expanduser(value)
         return value
 
@@ -317,7 +317,7 @@ class Command:
         if options:
             options = {
                 k: self.expanduser(v)
-                for k, v in items(vars(options)) if not k.startswith('_')
+                for k, v in vars(options).items() if not k.startswith('_')
             }
         args = [self.expanduser(arg) for arg in args]
         self.check_args(args)
@@ -372,7 +372,7 @@ class Command:
     def prepare_parser(self, parser):
         docs = [self.parse_doc(doc) for doc in (self.doc, __doc__) if doc]
         for doc in docs:
-            for long_opt, help in items(doc):
+            for long_opt, help in doc.items():
                 option = parser.get_option(long_opt)
                 if option is not None:
                     option.help = ' '.join(help).format(default=option.default)
@@ -578,8 +578,8 @@ class Command:
                 return self.pretty_dict_ok_error(n)
             else:
                 return OK, json.dumps(n, sort_keys=True, indent=4)
-        if isinstance(n, string_t):
-            return OK, string(n)
+        if isinstance(n, str):
+            return OK, str(n)
         return OK, pformat(n)
 
     def say_chat(self, direction, title, body=''):

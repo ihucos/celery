@@ -20,7 +20,6 @@ from kombu.utils.encoding import safe_str
 from celery.utils.functional import padlist
 
 from celery.bin.base import Command
-from celery.five import string_t
 from celery.utils.serialization import strtobool
 
 __all__ = ['AMQPAdmin', 'AMQShell', 'Spec', 'amqp']
@@ -262,7 +261,7 @@ class AMQShell(cmd.Cmd):
         Look-up order is: :attr:`builtins` -> :attr:`amqp`.
 
         """
-        if isinstance(arglist, string_t):
+        if isinstance(arglist, str):
             arglist = shlex.split(safe_str(arglist))
         if cmd in self.builtins:
             return getattr(self, self.builtins[cmd])(*arglist)
@@ -282,7 +281,7 @@ class AMQShell(cmd.Cmd):
 
     def onecmd(self, line):
         """Parse line and execute command."""
-        if isinstance(line, string_t):
+        if isinstance(line, str):
             line = shlex.split(safe_str(line))
         cmd, arg, line = self.parseline(line)
         if not line:
@@ -300,7 +299,7 @@ class AMQShell(cmd.Cmd):
     def respond(self, retval):
         """What to do with the return value of a command."""
         if retval is not None:
-            if isinstance(retval, string_t):
+            if isinstance(retval, str):
                 self.say(retval)
             else:
                 self.say(pprint.pformat(retval))

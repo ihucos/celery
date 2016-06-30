@@ -10,8 +10,6 @@ from __future__ import absolute_import, unicode_literals
 
 import numbers
 
-from .five import string_t
-
 from billiard.exceptions import (  # noqa
     SoftTimeLimitExceeded, TimeLimitExceeded, WorkerLostError, Terminated,
 )
@@ -70,7 +68,7 @@ class Retry(TaskPredicate):
     def __init__(self, message=None, exc=None, when=None, **kwargs):
         from kombu.utils.encoding import safe_repr
         self.message = message
-        if isinstance(exc, string_t):
+        if isinstance(exc, str):
             self.exc, self.excs = None, exc
         else:
             self.exc, self.excs = exc, safe_repr(exc) if exc else None

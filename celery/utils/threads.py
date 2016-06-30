@@ -17,7 +17,6 @@ import traceback
 from contextlib import contextmanager
 
 from celery.local import Proxy
-from celery.five import THREAD_TIMEOUT_MAX, items
 
 __all__ = [
     'bgThread', 'Local', 'LocalStack', 'LocalManager',
@@ -86,7 +85,7 @@ class bgThread(threading.Thread):
         self._is_shutdown.set()
         self._is_stopped.wait()
         if self.is_alive():
-            self.join(THREAD_TIMEOUT_MAX)
+            self.join(threading.TIMEOUT_MAX)
 
 try:
     from greenlet import getcurrent as get_ident
@@ -134,7 +133,7 @@ class Local:
         object.__setattr__(self, '__ident_func__', get_ident)
 
     def __iter__(self):
-        return iter(items(self.__storage__))
+        return iter(self.__storage__.items())
 
     def __call__(self, proxy):
         """Create a proxy for a name."""

@@ -270,7 +270,6 @@ from importlib import import_module
 from kombu.utils import json
 
 from celery.app import defaults
-from celery.five import keys, string_t, values
 from celery.platforms import EX_OK, EX_FAILURE, EX_UNAVAILABLE, EX_USAGE
 from celery.utils import term
 from celery.utils import text
@@ -416,12 +415,12 @@ class call(Command):
     def run(self, name, *_, **kw):
         # Positional args.
         args = kw.get('args') or ()
-        if isinstance(args, string_t):
+        if isinstance(args, str):
             args = json.loads(args)
 
         # Keyword args.
         kwargs = kw.get('kwargs') or {}
-        if isinstance(kwargs, string_t):
+        if isinstance(kwargs, str):
             kwargs = json.loads(kwargs)
 
         # Expires can be int/float.
@@ -472,7 +471,7 @@ class purge(Command):
     def run(self, force=False, queues=None, exclude_queues=None, **kwargs):
         queues = set(str_to_list(queues or []))
         exclude = set(str_to_list(exclude_queues or []))
-        names = (queues or set(keys(self.app.amqp.queues))) - exclude
+        names = (queues or set(self.app.amqp.queues.keys())) - exclude
         qnum = len(names)
 
         messages = None
@@ -612,7 +611,7 @@ class _RemoteControl(Command):
         output_json = kwargs.get('json')
         destination = kwargs.get('destination')
         timeout = kwargs.get('timeout') or self.choices[method][0]
-        if destination and isinstance(destination, string_t):
+        if destination and isinstance(destination, str):
             destination = [dest.strip() for dest in destination.split(',')]
 
         handler = getattr(self, method, self.call)
@@ -853,7 +852,7 @@ class shell(Command):  # pragma: no cover
 
         if not without_tasks:
             self.locals.update({
-                task.__name__: task for task in values(self.app.tasks)
+                task.__name__: task for task in self.app.tasks.values()
                 if not task.name.startswith('celery.')
             })
 

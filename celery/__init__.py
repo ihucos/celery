@@ -39,7 +39,7 @@ VERSION_BANNER = '{0} ({1})'.format(__version__, SERIES)
 
 
 if os.environ.get('C_IMPDEBUG'):  # pragma: no cover
-    from .five import builtins
+    import builtins
 
     def debug_import(name, locals=None, globals=None,
                      fromlist=None, level=-1, real_import=builtins.__import__):

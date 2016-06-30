@@ -13,6 +13,7 @@ import time
 from collections import OrderedDict, deque
 from contextlib import contextmanager
 from copy import copy
+from time import monotonic
 
 from kombu.utils import cached_property
 from vine import Thenable, barrier, promise
@@ -22,7 +23,6 @@ from . import states
 from ._state import _set_task_join_will_block, task_join_will_block
 from .app import app_or_default
 from .exceptions import ImproperlyConfigured, IncompleteStream, TimeoutError
-from .five import items, range, string_t, monotonic
 from .utils import deprecated
 from .utils.graph import DependencyGraph, GraphFormatter
 
@@ -321,7 +321,7 @@ class AsyncResult(ResultBase):
     def __eq__(self, other):
         if isinstance(other, AsyncResult):
             return other.id == self.id
-        elif isinstance(other, string_t):
+        elif isinstance(other, str):
             return other == self.id
         return NotImplemented
 
@@ -478,7 +478,7 @@ class ResultSet(ResultBase):
         :raises KeyError: if the result is not a member.
 
         """
-        if isinstance(result, string_t):
+        if isinstance(result, str):
             result = self.app.AsyncResult(result)
         try:
             self.results.remove(result)
@@ -592,7 +592,7 @@ class ResultSet(ResultBase):
 
         while results:
             removed = set()
-            for task_id, result in items(results):
+            for task_id, result in results.items():
                 if result.ready():
                     yield result.get(timeout=timeout and timeout - elapsed,
                                      propagate=propagate)
