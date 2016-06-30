@@ -13,7 +13,7 @@ from textwrap import dedent
 
 from kombu.utils.encoding import safe_str, bytes_to_str
 
-from celery.five import items, python_2_unicode_compatible
+from celery.five import items
 
 __all__ = ['DOT', 'CycleError', 'DependencyGraph', 'GraphFormatter']
 
@@ -35,7 +35,6 @@ class CycleError(Exception):
     """A cycle was detected in an acyclic graph."""
 
 
-@python_2_unicode_compatible
 class DependencyGraph:
     """A directed acyclic graph of objects and their dependencies.
 

@@ -14,14 +14,12 @@ import sqlalchemy as sa
 from sqlalchemy.types import PickleType
 
 from celery import states
-from celery.five import python_2_unicode_compatible
 
 from .session import ResultModelBase
 
 __all__ = ['Task', 'TaskSet']
 
 
-@python_2_unicode_compatible
 class Task(ResultModelBase):
     """Task result/status."""
     __tablename__ = 'celery_taskmeta'
@@ -51,7 +49,6 @@ class Task(ResultModelBase):
         return '<Task {0.task_id} state: {0.status}>'.format(self)
 
 
-@python_2_unicode_compatible
 class TaskSet(ResultModelBase):
     """TaskSet result"""
     __tablename__ = 'celery_tasksetmeta'

@@ -24,7 +24,6 @@ from kombu.utils import cached_property, fxrange, reprcall, uuid
 from vine import barrier
 
 from celery._state import current_app
-from celery.five import python_2_unicode_compatible
 from celery.local import try_import
 from celery.result import GroupResult
 from celery.utils import abstract
@@ -121,7 +120,6 @@ def _upgrade(fields, sig):
 
 
 @abstract.CallableSignature.register
-@python_2_unicode_compatible
 class Signature(dict):
     """Class that wraps the arguments and execution options
     for a single task invocation.
@@ -415,7 +413,6 @@ class Signature(dict):
 
 
 @Signature.register_type
-@python_2_unicode_compatible
 class chain(Signature):
     tasks = _getitem_property('kwargs.tasks')
 
@@ -636,7 +633,6 @@ class _basemap(Signature):
 
 
 @Signature.register_type
-@python_2_unicode_compatible
 class xmap(_basemap):
     _task_name = 'celery.map'
 
@@ -647,7 +643,6 @@ class xmap(_basemap):
 
 
 @Signature.register_type
-@python_2_unicode_compatible
 class xstarmap(_basemap):
     _task_name = 'celery.starmap'
 
@@ -710,7 +705,6 @@ def _maybe_group(tasks, app):
 
 
 @Signature.register_type
-@python_2_unicode_compatible
 class group(Signature):
     tasks = _getitem_property('kwargs.tasks')
 
@@ -908,7 +902,6 @@ class group(Signature):
 
 
 @Signature.register_type
-@python_2_unicode_compatible
 class chord(Signature):
 
     def __init__(self, header, body=None, task='celery.chord',

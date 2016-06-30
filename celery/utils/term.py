@@ -12,7 +12,7 @@ import platform
 
 from functools import reduce
 
-from celery.five import python_2_unicode_compatible, string
+from celery.five import string
 
 __all__ = ['colored']
 
@@ -28,7 +28,6 @@ def fg(s):
     return COLOR_SEQ % s
 
 
-@python_2_unicode_compatible
 class colored:
     """Terminal colored text.
 

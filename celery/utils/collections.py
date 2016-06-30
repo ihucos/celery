@@ -18,7 +18,7 @@ from collections import (
 from heapq import heapify, heappush, heappop
 from itertools import chain, count
 
-from celery.five import Empty, items, keys, python_2_unicode_compatible, values
+from celery.five import Empty, items, keys, values
 
 from .functional import first, uniq
 from .text import match_case
@@ -344,7 +344,6 @@ class ChainMap(MutableMapping):
             return list(self._iterate_values())
 
 
-@python_2_unicode_compatible
 class ConfigurationView(ChainMap, AttributeDictMixin):
     """A view over an applications configuration dictionaries.
 
@@ -423,7 +422,6 @@ class ConfigurationView(ChainMap, AttributeDictMixin):
         )
 
 
-@python_2_unicode_compatible
 class LimitedSet:
     """Kind-of Set (or priority queue) with limitations.
 
@@ -671,7 +669,6 @@ class Evictable:
             raise IndexError()
 
 
-@python_2_unicode_compatible
 class Messagebuffer(Evictable):
 
     Empty = Empty
@@ -733,7 +730,6 @@ class Messagebuffer(Evictable):
 Sequence.register(Messagebuffer)
 
 
-@python_2_unicode_compatible
 class BufferMap(OrderedDict, Evictable):
 
     Buffer = Messagebuffer

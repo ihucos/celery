@@ -34,7 +34,7 @@ from kombu.clocks import timetuple
 from kombu.utils import cached_property
 
 from celery import states
-from celery.five import items, python_2_unicode_compatible, values
+from celery.five import items, values
 from celery.utils.functional import LRUCache, memoize, pass1
 from celery.utils.log import get_logger
 
@@ -149,7 +149,6 @@ def with_unique_field(attr):
 
 
 @with_unique_field('hostname')
-@python_2_unicode_compatible
 class Worker:
     """Worker State."""
     heartbeat_max = 4
@@ -242,7 +241,6 @@ class Worker:
 
 
 @with_unique_field('uuid')
-@python_2_unicode_compatible
 class Task:
     """Task State."""
     name = received = sent = started = succeeded = failed = retried = \

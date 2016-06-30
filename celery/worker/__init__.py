@@ -30,7 +30,7 @@ from celery import signals
 from celery.exceptions import (
     ImproperlyConfigured, WorkerTerminate, TaskRevokedError,
 )
-from celery.five import python_2_unicode_compatible, values
+from celery.five import values
 from celery.platforms import EX_FAILURE, create_pidlock
 from celery.utils.imports import reload_from_cwd
 from celery.utils.log import mlevel, worker_logger as logger
@@ -59,7 +59,6 @@ defined in the `task_queues` setting.
 """
 
 
-@python_2_unicode_compatible
 class WorkController:
     """Unmanaged worker instance."""
     app = None
