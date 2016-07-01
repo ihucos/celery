@@ -220,9 +220,7 @@ class ResultHandler(_pool.ResultHandler):
                 n = __read__(
                     fd, bufv[Hr:] if readcanbuf else bufv, 4 - Hr,
                 )
-            except OSError as exc:
-                if exc.errno not in UNAVAIL:
-                    raise
+            except (BlockingIOError, InterruptedError):
                 yield
             else:
                 if n == 0:
@@ -242,9 +240,7 @@ class ResultHandler(_pool.ResultHandler):
                 n = __read__(
                     fd, bufv[Br:] if readcanbuf else bufv, body_size - Br,
                 )
-            except OSError as exc:
-                if exc.errno not in UNAVAIL:
-                    raise
+            except (BlockingIOError, InterruptedError):
                 yield
             else:
                 if n == 0:
@@ -832,9 +828,7 @@ class AsynPool(_pool.Pool):
                 while Hw < 4:
                     try:
                         Hw += send(header, Hw)
-                    except Exception as exc:
-                        if getattr(exc, 'errno', None) not in UNAVAIL:
-                            raise
+                    except (BlockingIOError, InterruptedError) as exc:
                         # suspend until more data
                         errors += 1
                         if errors > 100:
@@ -848,9 +842,7 @@ class AsynPool(_pool.Pool):
                 while Bw < body_size:
                     try:
                         Bw += send(body, Bw)
-                    except Exception as exc:
-                        if getattr(exc, 'errno', None) not in UNAVAIL:
-                            raise
+                    except (BlockingIOError, InterruptedError) as exc:
                         # suspend until more data
                         errors += 1
                         if errors > 100:
@@ -897,18 +889,14 @@ class AsynPool(_pool.Pool):
                 while Hw < 4:
                     try:
                         Hw += send(header, Hw)
-                    except Exception as exc:
-                        if getattr(exc, 'errno', None) not in UNAVAIL:
-                            raise
+                    except (BlockingIOError, InterruptedError):
                         yield
 
                 # write body
                 while Bw < body_size:
                     try:
                         Bw += send(body, Bw)
-                    except Exception as exc:
-                        if getattr(exc, 'errno', None) not in UNAVAIL:
-                            raise
+                    except (BlockingIOError, InterruptedError):
                         # suspend until more data
                         yield
             finally:
