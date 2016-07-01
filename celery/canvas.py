@@ -10,8 +10,6 @@
 
 
 """
-from __future__ import absolute_import, unicode_literals
-
 from collections import MutableSequence, deque
 from copy import deepcopy
 from functools import partial as _partial, reduce

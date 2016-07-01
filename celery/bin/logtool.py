@@ -6,9 +6,6 @@ The :program:`celery logtool` command.
 .. program:: celery logtool
 
 """
-
-from __future__ import absolute_import, unicode_literals
-
 import re
 
 from collections import Counter

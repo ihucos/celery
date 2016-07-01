@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*- """
 """
     celery.worker.request
     ~~~~~~~~~~~~~~~~~~~~~
@@ -7,8 +7,6 @@
     which specifies how tasks are executed.
 
 """
-from __future__ import absolute_import, unicode_literals
-
 import logging
 import sys
 

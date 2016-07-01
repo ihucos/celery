@@ -6,8 +6,6 @@
     Object related utilities including introspection, etc.
 
 """
-from __future__ import absolute_import, unicode_literals
-
 __all__ = ['mro_lookup']
 
 

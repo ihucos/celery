@@ -6,8 +6,6 @@
     Sending and receiving messages using Kombu.
 
 """
-from __future__ import absolute_import, unicode_literals
-
 import numbers
 
 from collections import Mapping, namedtuple

@@ -9,8 +9,6 @@
     and shouldn't be used in new applications.
 
 """
-from __future__ import absolute_import, unicode_literals
-
 from kombu import Exchange
 
 from celery import current_app

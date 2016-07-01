@@ -40,8 +40,6 @@ Inspired by http://snippets.dzone.com/posts/show/7248
     base port.  The selected port will be logged by the worker.
 
 """
-from __future__ import absolute_import, print_function, unicode_literals
-
 import errno
 import os
 import socket

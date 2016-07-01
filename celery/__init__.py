@@ -5,9 +5,6 @@
 # :copyright: (c) 2009 - 2012 Ask Solem and individual contributors,
 #                 All rights reserved.
 # :license:   BSD (3 Clause), see LICENSE for more details.
-
-from __future__ import absolute_import, print_function, unicode_literals
-
 import os
 import sys
 

@@ -6,8 +6,6 @@
     Module implementing the signing message serializer.
 
 """
-from __future__ import absolute_import, unicode_literals
-
 from kombu.serialization import (
     registry, disable_insecure_serializers as _disable_insecure_serializers,
 )

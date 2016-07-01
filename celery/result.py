@@ -6,8 +6,6 @@
     Task results/state and groups of results.
 
 """
-from __future__ import absolute_import, unicode_literals
-
 import time
 
 from collections import OrderedDict, deque

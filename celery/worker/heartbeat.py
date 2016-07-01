@@ -7,8 +7,6 @@
     at regular intervals.
 
 """
-from __future__ import absolute_import, unicode_literals
-
 from celery.signals import heartbeat_sent
 from celery.utils.sysinfo import load_average
 

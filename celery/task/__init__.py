@@ -9,8 +9,6 @@
     ``celery.app.base.Celery.task``.
 
 """
-from __future__ import absolute_import, unicode_literals
-
 from celery._state import current_app, current_task as current
 from celery.five import LazyModule, recreate_module
 from celery.local import Proxy

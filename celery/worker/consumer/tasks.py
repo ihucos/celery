@@ -1,5 +1,3 @@
-from __future__ import absolute_import, unicode_literals
-
 from kombu.common import QoS, ignore_errors
 
 from celery import bootsteps

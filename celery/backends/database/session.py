@@ -6,8 +6,6 @@
     SQLAlchemy sessions.
 
 """
-from __future__ import absolute_import, unicode_literals
-
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker

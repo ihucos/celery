@@ -6,8 +6,6 @@
     gevent pool implementation.
 
 """
-from __future__ import absolute_import, unicode_literals
-
 from time import time
 
 try:

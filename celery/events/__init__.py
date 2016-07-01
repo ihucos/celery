@@ -8,8 +8,6 @@
     is enabled), used for monitoring purposes.
 
 """
-from __future__ import absolute_import, unicode_literals
-
 import os
 import time
 import threading

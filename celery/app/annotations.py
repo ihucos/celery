@@ -10,8 +10,6 @@
     :setting:`task_annotations` setting.
 
 """
-from __future__ import absolute_import, unicode_literals
-
 from celery.utils.functional import firstmethod, mlazy
 from celery.utils.imports import instantiate
 
