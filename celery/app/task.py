@@ -453,8 +453,6 @@ class Task:
             attribute.  Trailing can also be disabled by default using the
             :attr:`trail` attribute
 
-        :keyword publisher: Deprecated alias to ``producer``.
-
         :keyword headers: Message headers to be sent in the
             task (a :class:`dict`)
 
