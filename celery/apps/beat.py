@@ -94,7 +94,7 @@ class Beat:
                             scheduler_cls=self.scheduler_cls,
                             schedule_filename=self.schedule)
 
-        print(self.banner())
+        print(self.banner(beat))
 
         self.setup_logging()
         if self.socket_timeout:
@@ -110,7 +110,7 @@ class Beat:
                             exc_info=True)
             raise
 
-    def banner(self):
+    def banner(self, beat):
         c = self.colored
         return str(  # flake8: noqa
             c.blue('__    ', c.magenta('-'),

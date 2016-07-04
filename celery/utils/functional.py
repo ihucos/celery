@@ -56,7 +56,7 @@ class mlazy(lazy):
 
     def evaluate(self):
         if not self.evaluated:
-            self._value = super(mlazy, self).evaluate()
+            self._value = super().evaluate()
             self.evaluated = True
         return self._value
 
