@@ -106,7 +106,7 @@ class Worker(WorkController):
         self.redirect_stdouts_level = self.app.either(
             'worker_redirect_stdouts_level', redirect_stdouts_level,
         )
-        super(Worker, self).setup_defaults(**kwargs)
+        super().setup_defaults(**kwargs)
         self.purge = purge
         self.no_color = no_color
         self._isatty = isatty(sys.stdout)

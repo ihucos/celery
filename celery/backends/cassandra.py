@@ -87,7 +87,7 @@ class CassandraBackend(BaseBackend):
         the :setting:`cassandra_servers` setting is not set.
 
         """
-        super(CassandraBackend, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
         if not cassandra:
             raise ImproperlyConfigured(E_NO_CASSANDRA)
@@ -240,4 +240,4 @@ class CassandraBackend(BaseBackend):
             dict(servers=self.servers,
                  keyspace=self.keyspace,
                  table=self.table))
-        return super(CassandraBackend, self).__reduce__(args, kwargs)
+        return super().__reduce__(args, kwargs)

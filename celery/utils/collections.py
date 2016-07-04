@@ -276,8 +276,7 @@ class ConfigurationView(ChainMap, AttributeDictMixin):
 
     def __init__(self, changes, defaults=None, key_t=None, prefix=None):
         defaults = [] if defaults is None else defaults
-        super(ConfigurationView, self).__init__(
-            changes, *defaults, **{'key_t': key_t})
+        super().__init__(changes, *defaults, **{'key_t': key_t})
         self.__dict__.update(
             prefix=prefix.rstrip('_') + '_' if prefix else prefix,
         )
@@ -291,7 +290,7 @@ class ConfigurationView(ChainMap, AttributeDictMixin):
 
     def __getitem__(self, key):
         keys = self._to_keys(key)
-        getitem = super(ConfigurationView, self).__getitem__
+        getitem = super().__getitem__
         for k in keys:
             try:
                 return getitem(k)
@@ -655,7 +654,7 @@ class BufferMap(OrderedDict, Evictable):
     bufmaxsize = None
 
     def __init__(self, maxsize, iterable=None, bufmaxsize=1000):
-        super(BufferMap, self).__init__()
+        super().__init__()
         self.maxsize = maxsize
         self.bufmaxsize = 1000
         if iterable:

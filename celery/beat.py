@@ -560,7 +560,7 @@ class _Threaded(Thread):
     """Embedded task scheduler using threading."""
 
     def __init__(self, app, **kwargs):
-        super(_Threaded, self).__init__()
+        super().__init__()
         self.app = app
         self.service = Service(app, **kwargs)
         self.daemon = True
@@ -582,7 +582,7 @@ else:
     class _Process(Process):    # noqa
 
         def __init__(self, app, **kwargs):
-            super(_Process, self).__init__()
+            super().__init__()
             self.app = app
             self.service = Service(app, **kwargs)
             self.name = 'Beat'
