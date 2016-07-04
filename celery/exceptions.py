@@ -87,7 +87,6 @@ class Retry(TaskPredicate):
 
     def __reduce__(self):
         return self.__class__, (self.message, self.excs, self.when)
-RetryTaskError = Retry   # XXX compat
 
 
 class Ignore(TaskPredicate):
