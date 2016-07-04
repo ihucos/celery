@@ -776,7 +776,6 @@ class Celery:
                              acquired from the connection pool.
         """
         return FallbackContext(connection, self._acquire_connection, pool=pool)
-    default_connection = connection_or_acquire  # XXX compat
 
     def producer_or_acquire(self, producer=None):
         """For use within a :keyword:`with` statement to get a producer
