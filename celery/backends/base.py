@@ -472,7 +472,6 @@ class SyncBackendMixin:
 
 class BaseBackend(Backend, SyncBackendMixin):
     pass
-BaseDictBackend = BaseBackend  # XXX compat
 
 
 class BaseKeyValueStoreBackend(Backend):
