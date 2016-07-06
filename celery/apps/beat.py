@@ -89,12 +89,12 @@ class Beat:
     def start_scheduler(self):
         if self.pidfile:
             platforms.create_pidlock(self.pidfile)
-        beat = self.Service(app=self.app,
+        service = self.Service(app=self.app,
                             max_interval=self.max_interval,
                             scheduler_cls=self.scheduler_cls,
                             schedule_filename=self.schedule)
 
-        print(self.banner(beat))
+        print(self.banner(service))
 
         self.setup_logging()
         if self.socket_timeout:
@@ -102,21 +102,21 @@ class Beat:
                          self.socket_timeout)
             socket.setdefaulttimeout(self.socket_timeout)
         try:
-            self.install_sync_handler(beat)
-            beat.start()
+            self.install_sync_handler(service)
+            service.start()
         except Exception as exc:
             logger.critical('beat raised exception %s: %r',
                             exc.__class__, exc,
                             exc_info=True)
             raise
 
-    def banner(self, beat):
+    def banner(self, service):
         c = self.colored
         return str(  # flake8: noqa
             c.blue('__    ', c.magenta('-'),
             c.blue('    ... __   '), c.magenta('-'),
             c.blue('        _\n'),
-            c.reset(self.startup_info(beat))),
+            c.reset(self.startup_info(service))),
         )
 
     def init_loader(self):
@@ -125,8 +125,8 @@ class Beat:
         self.app.loader.init_worker()
         self.app.finalize()
 
-    def startup_info(self, beat):
-        scheduler = beat.get_scheduler(lazy=True)
+    def startup_info(self, service):
+        scheduler = service.get_scheduler(lazy=True)
         return STARTUP_INFO_FMT.format(
             conninfo=self.app.connection().as_uri(),
             timestamp=datetime.now().replace(microsecond=0),
@@ -135,8 +135,8 @@ class Beat:
             loader=qualname(self.app.loader),
             scheduler=qualname(scheduler),
             scheduler_info=scheduler.info,
-            hmax_interval=humanize_seconds(beat.max_interval),
-            max_interval=beat.max_interval,
+            hmax_interval=humanize_seconds(service.max_interval),
+            max_interval=service.max_interval,
         )
 
     def set_process_title(self):
@@ -145,12 +145,12 @@ class Beat:
             'celery beat', info=' '.join(sys.argv[arg_start:]),
         )
 
-    def install_sync_handler(self, beat):
+    def install_sync_handler(self, service):
         """Install a `SIGTERM` + `SIGINT` handler that saves
         the beat schedule."""
 
         def _sync(signum, frame):
-            beat.sync()
+            service.sync()
             raise SystemExit()
 
         platforms.signals.update(SIGTERM=_sync, SIGINT=_sync)

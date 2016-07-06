@@ -104,6 +104,7 @@ class PendingConfiguration(UserDict, AttributeDictMixin):
         return self.callback(key)
 
 
+@abstract.AbstractApp.register
 class Celery:
     """Celery application.
 
