@@ -9,7 +9,7 @@
 import platform
 
 from functools import reduce
-from typing import Any, Tuple
+from typing import Any, Mapping, Tuple
 
 __all__ = ['colored']
 
@@ -37,15 +37,11 @@ class colored:
 
     """
 
-    def __init__(self, *s: [str], enabled: bool=True, op: str='', **kwargs):
-        # type: str
+    def __init__(self, *s: Tuple[str],
+                 enabled: bool=True, op: str='', **kwargs) -> None:
         self.s = s
-
-        # type: bool
         self.enabled = not IS_WINDOWS and enabled
-
-        # type: str
-        self.op = kwargs.get('op', '')
+        self.op = op
 
         # type: Mapping[str, str]
         self.names = {
