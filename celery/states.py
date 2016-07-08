@@ -58,29 +58,35 @@ Misc.
 
 """
 
-__all__ = ['PENDING', 'RECEIVED', 'STARTED', 'SUCCESS', 'FAILURE',
-           'REVOKED', 'RETRY', 'IGNORED', 'READY_STATES', 'UNREADY_STATES',
-           'EXCEPTION_STATES', 'PROPAGATE_STATES', 'precedence', 'state']
+from typing import Any, Optional
+
+__all__ = [
+    'PENDING', 'RECEIVED', 'STARTED', 'SUCCESS', 'FAILURE',
+    'REVOKED', 'RETRY', 'IGNORED', 'READY_STATES', 'UNREADY_STATES',
+    'EXCEPTION_STATES', 'PROPAGATE_STATES', 'precedence', 'state',
+]
 
 #: State precedence.
 #: None represents the precedence of an unknown state.
 #: Lower index means higher precedence.
-PRECEDENCE = ['SUCCESS',
-              'FAILURE',
-              None,
-              'REVOKED',
-              'STARTED',
-              'RECEIVED',
-              'REJECTED',
-              'RETRY',
-              'PENDING']
+PRECEDENCE = [
+    'SUCCESS',
+    'FAILURE',
+    None,
+    'REVOKED',
+    'STARTED',
+    'RECEIVED',
+    'REJECTED',
+    'RETRY',
+    'PENDING',
+]
 
 #: Hash lookup of PRECEDENCE to index
 PRECEDENCE_LOOKUP = dict(zip(PRECEDENCE, range(0, len(PRECEDENCE))))
 NONE_PRECEDENCE = PRECEDENCE_LOOKUP[None]
 
 
-def precedence(state):
+def precedence(state: Optional[str]) -> int:
     """Get the precedence index for state.
 
     Lower index means higher precedence.
@@ -112,16 +118,16 @@ class state(str):
 
     """
 
-    def __gt__(self, other):
+    def __gt__(self, other: Any) -> bool:
         return precedence(self) < precedence(other)
 
-    def __ge__(self, other):
+    def __ge__(self, other: Any) -> bool:
         return precedence(self) <= precedence(other)
 
-    def __lt__(self, other):
+    def __lt__(self, other: Any) -> bool:
         return precedence(self) > precedence(other)
 
-    def __le__(self, other):
+    def __le__(self, other: Any) -> bool:
         return precedence(self) >= precedence(other)
 
 #: Task state is unknown (assumed pending since you know the id).

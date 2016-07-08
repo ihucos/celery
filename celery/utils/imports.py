@@ -13,6 +13,8 @@ import sys
 
 from contextlib import contextmanager
 from imp import reload
+from types import ModuleType
+from typing import Any, Callable, Iterator, Optional
 
 from kombu.utils import symbol_by_name
 
@@ -33,7 +35,7 @@ class NotAPackage(Exception):
     pass
 
 
-def qualname(obj):
+def qualname(obj: Any) -> str:
     if not hasattr(obj, '__name__') and hasattr(obj, '__class__'):
         obj = obj.__class__
     q = getattr(obj, '__qualname__', None)
@@ -42,7 +44,7 @@ def qualname(obj):
     return q
 
 
-def instantiate(name, *args, **kwargs):
+def instantiate(name: Any, *args, **kwargs) -> Any:
     """Instantiate class by name.
 
     See :func:`symbol_by_name`.
@@ -52,7 +54,7 @@ def instantiate(name, *args, **kwargs):
 
 
 @contextmanager
-def cwd_in_path():
+def cwd_in_path() -> Iterator:
     cwd = os.getcwd()
     if cwd in sys.path:
         yield
@@ -67,7 +69,9 @@ def cwd_in_path():
                 pass
 
 
-def find_module(module, path=None, imp=None):
+def find_module(module: str,
+                path: Optional[str]=None,
+                imp: Optional[Callable]=None) -> ModuleType:
     """Version of :func:`imp.find_module` supporting dots."""
     if imp is None:
         imp = importlib.import_module
@@ -86,7 +90,9 @@ def find_module(module, path=None, imp=None):
         return _imp.find_module(module)
 
 
-def import_from_cwd(module, imp=None, package=None):
+def import_from_cwd(module: str,
+                    imp: Optional[Callable]=None,
+                    package: Optional[str]=None) -> ModuleType:
     """Import module, but make sure it finds modules
     located in the current directory.
 
@@ -99,20 +105,21 @@ def import_from_cwd(module, imp=None, package=None):
         return imp(module, package=package)
 
 
-def reload_from_cwd(module, reloader=None):
+def reload_from_cwd(module: ModuleType,
+                    reloader: Optional[Callable]=None) -> Any:
     if reloader is None:
         reloader = reload
     with cwd_in_path():
         return reloader(module)
 
 
-def module_file(module):
+def module_file(module: ModuleType) -> str:
     """Return the correct original file name of a module."""
     name = module.__file__
     return name[:-1] if name.endswith('.pyc') else name
 
 
-def gen_task_name(app, name, module_name):
+def gen_task_name(app: Any, name: str, module_name: str) -> str:
     """Generate task name from name/module pair."""
     module_name = module_name or '__main__'
     try:
