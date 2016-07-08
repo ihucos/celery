@@ -21,6 +21,7 @@ from . import states
 from ._state import _set_task_join_will_block, task_join_will_block
 from .app import app_or_default
 from .exceptions import ImproperlyConfigured, IncompleteStream, TimeoutError
+from .utils.abstract import AbstractResult
 from .utils.graph import DependencyGraph, GraphFormatter
 
 try:
@@ -62,6 +63,7 @@ class ResultBase:
     parent = None
 
 
+@AbstractResult.register
 @Thenable.register
 class AsyncResult(ResultBase):
     """Query task state.
@@ -421,6 +423,7 @@ class AsyncResult(ResultBase):
 
 
 @Thenable.register
+@AbstractResult.register
 class ResultSet(ResultBase):
     """Working with more than one result.
 
@@ -761,6 +764,7 @@ class ResultSet(ResultBase):
         return self.app.backend if self.app else self.results[0].backend
 
 
+@AbstractResult.register
 @Thenable.register
 class GroupResult(ResultSet):
     """Like :class:`ResultSet`, but with an associated id.
@@ -838,6 +842,7 @@ class GroupResult(ResultSet):
         ).restore_group(id)
 
 
+@AbstractResult.register
 @Thenable.register
 class EagerResult(AsyncResult):
     """Result that we know has already been executed."""
