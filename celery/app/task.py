@@ -664,7 +664,7 @@ class Task(object):
         try:
             S.apply_async()
         except Exception as exc:
-            raise Reject(exc, requeue=False)
+            raise exc
         if throw:
             raise ret
         return ret
